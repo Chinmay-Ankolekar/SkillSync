@@ -35,6 +35,8 @@ function Login({ setToken }) {
     }
   };
 
+  console.log("test")
+
 
   return (
     <>
