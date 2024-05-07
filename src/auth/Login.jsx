@@ -22,7 +22,6 @@ function Login({ setToken }) {
   const handlesubmit = async (e) => {
     try {
       e.preventDefault();
-
       const { data, error } = await supabase.auth.signInWithPassword({
         email: formdata.email,
         password: formdata.password,
