@@ -10,6 +10,7 @@ function Dashboard({ token }) {
 
   return (
     <div>
+      <h1>automatic recruitment system</h1>
       <h1>Welcome to the Dashboard</h1>
       <button className="border" onClick={Logout}>
         Logout
