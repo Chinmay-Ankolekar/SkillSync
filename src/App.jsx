@@ -3,6 +3,7 @@ import Login from './auth/Login'
 import Signup from './auth/Signup'
 import LandingPage from './components/LandingPage'
 import Dashboard from './components/Dashboard'
+import UserDashboard from './components/UserDashboard'
 import {  Route,  Routes  } from 'react-router-dom'
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         {token ? (
         <>
           <Route path={'/dashboard'} element={<Dashboard token={token}/>} />
+          <Route path={'/userdashboard'} element={<UserDashboard token={token}/>} />
         </>
       ) : (
          <>

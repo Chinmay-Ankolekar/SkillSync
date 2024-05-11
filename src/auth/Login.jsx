@@ -28,13 +28,17 @@ function Login({ setToken }) {
       });
       if (error) throw error;
       setToken(data);
-      navigate("/dashboard");
+
+      if(data.user.user_metadata.userType === "hr"){
+        navigate("/dashboard");
+      }
+      else{
+        navigate("/userdashboard");
+      }
     } catch (error) {
       alert(error.message);
     }
   };
-
-  console.log("test")
 
 
   return (
