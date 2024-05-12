@@ -4,6 +4,8 @@ import Signup from './auth/Signup'
 import LandingPage from './components/LandingPage'
 import Dashboard from './components/Dashboard'
 import UserDashboard from './components/UserDashboard'
+import AddJob from './components/AddJob'
+import ApplyJobs from './components/ApplyJobs'
 import {  Route,  Routes  } from 'react-router-dom'
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
         <>
           <Route path={'/dashboard'} element={<Dashboard token={token}/>} />
           <Route path={'/userdashboard'} element={<UserDashboard token={token}/>} />
+          <Route path={'/addjob'} element={<AddJob token={token}/>} />
+          <Route path={'/jobs/:id'} element={<ApplyJobs token={token}/>} />
         </>
       ) : (
          <>
