@@ -36,7 +36,7 @@ const ApplyJobs = ({ token }) => {
 
       const { data: fileData, error: fileError } = await supabase.storage
         .from("resumes")
-        .upload(`/resumes/${token.user.id}/${token.user.id}-${id}-${resumeFile.name}`, resumeFile);
+        .upload(`/resumes/${id}/${token.user.id}-${id}-${resumeFile.name}`, resumeFile);
       if (fileError) {
         console.log(fileError);
         throw fileError;
@@ -49,7 +49,7 @@ const ApplyJobs = ({ token }) => {
         {
           job_id: id,
           user_id: token.user.id,
-          resume_url: fileData.fullPath,
+          resume_url: fileData.path,
         },
       ]);
       if (error) throw error;
