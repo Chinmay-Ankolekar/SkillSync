@@ -19,7 +19,7 @@ const ApplyJobs = ({ token }) => {
     }
   };
 
-  const applyJob = async () => {
+  const applyJob = async (resumeFile) => {
     try {
       const { data: existingApplications, error: existingError } =
         await supabase
@@ -34,10 +34,22 @@ const ApplyJobs = ({ token }) => {
         return;
       }
 
+      const { data: fileData, error: fileError } = await supabase.storage
+        .from("resumes")
+        .upload(`/resumes/${token.user.id}/${token.user.id}-${id}-${resumeFile.name}`, resumeFile);
+      if (fileError) {
+        console.log(fileError);
+        throw fileError;
+      }
+
+      console.log(fileData);
+
+      
       const { data, error } = await supabase.from("job_applications").insert([
         {
           job_id: id,
           user_id: token.user.id,
+          resume_url: fileData.fullPath,
         },
       ]);
       if (error) throw error;
@@ -65,19 +77,14 @@ const ApplyJobs = ({ token }) => {
           <p>{job.experience}</p>
           <p>{job.location}</p>
           <p>{job.salary}</p>
-          <button
-            onClick={() => {
-              applyJob();
-            }}
-          >
-            Apply
-          </button>
           <br />
           <br />
         </div>
       ))}
+       <input type="file" onChange={(e) => applyJob(e.target.files[0])} />
     </>
   );
 };
 
 export default ApplyJobs;
+

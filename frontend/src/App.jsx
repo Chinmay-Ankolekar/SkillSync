@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard'
 import UserDashboard from './components/UserDashboard'
 import AddJob from './components/AddJob'
 import ApplyJobs from './components/ApplyJobs'
+import AppliedCandidates from './components/AppliedCandidates'
 import {  Route,  Routes  } from 'react-router-dom'
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route path={'/userdashboard'} element={<UserDashboard token={token}/>} />
           <Route path={'/addjob'} element={<AddJob token={token}/>} />
           <Route path={'/jobs/:id'} element={<ApplyJobs token={token}/>} />
+          <Route path={'/appliedcandidates/:id'} element={<AppliedCandidates token={token}/>} />
         </>
       ) : (
          <>
