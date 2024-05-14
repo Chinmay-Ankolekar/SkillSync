@@ -31,12 +31,16 @@ const ApplyJobs = ({ token }) => {
 
       if (existingApplications.length > 0) {
         alert("You have already applied for this job.");
+        window.location.reload();
         return;
       }
 
       const { data: fileData, error: fileError } = await supabase.storage
         .from("resumes")
-        .upload(`/resumes/${id}/${token.user.id}-${id}-${resumeFile.name}`, resumeFile);
+        .upload(
+          `/resumes/${id}/${token.user.id}-${id}-${resumeFile.name}`,
+          resumeFile
+        );
       if (fileError) {
         console.log(fileError);
         throw fileError;
@@ -44,7 +48,6 @@ const ApplyJobs = ({ token }) => {
 
       console.log(fileData);
 
-      
       const { data, error } = await supabase.from("job_applications").insert([
         {
           job_id: id,
@@ -55,6 +58,7 @@ const ApplyJobs = ({ token }) => {
       if (error) throw error;
 
       alert("Applied");
+      window.location.reload();
     } catch (error) {
       alert(error.message);
     }
@@ -81,10 +85,9 @@ const ApplyJobs = ({ token }) => {
           <br />
         </div>
       ))}
-       <input type="file" onChange={(e) => applyJob(e.target.files[0])} />
+      <input type="file" onChange={(e) => applyJob(e.target.files[0])} />
     </>
   );
 };
 
 export default ApplyJobs;
-

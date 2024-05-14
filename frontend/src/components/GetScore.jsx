@@ -9,14 +9,13 @@ const GetScore = ({ token }) => {
       try {
         const { data, error } = await supabase.storage
           .from("resumes")
-          .list(`resumes/8c819f43-4d38-4c70-8427-2acfb718027e`);
+          .list(`resumes/4`);
 
         if (error) {
           console.error("Error listing files:", error.message);
           return;
         }
 
-        console.log(data);
         setFiles(data || []);
       } catch (error) {
         console.error("Error:", error.message);

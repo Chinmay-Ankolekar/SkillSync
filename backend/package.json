@@ -10,8 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.43.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "nodemon": "^3.1.0"
+    "fs": "^0.0.1-security",
+    "nodemon": "^3.1.0",
+    "pdf-parse": "^1.1.1",
+    "supabase": "^1.167.4"
   }
 }
