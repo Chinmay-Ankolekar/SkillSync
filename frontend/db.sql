@@ -19,11 +19,10 @@ CREATE TABLE jobs (
     foreign key (created_by) references users (id)
 );
 
-create table job_applications (
+CREATE TABLE job_applications (
     id serial primary key,
-    job_id text,
-    user_id text,
-    foreign key (job_id) references jobs (id),
-    foreign key (user_id) references users (id)
+    job_id text references jobs (id) on delete cascade,
+    user_id text references users (id) on delete cascade
 );
+
 
