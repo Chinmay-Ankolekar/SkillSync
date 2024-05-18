@@ -149,12 +149,11 @@ app.post("/rank", async (req, res) => {
         .eq('id', userId)
         .single();
 
-        console.log(userData);
 
       if (userData.error) {
         throw userData.error;
       }
-      console.log(userData.data.email);
+
 
       rankedResumes[i].email = userData.data.email;
       rankedResumes[i].fullname = userData.data.fullname;
