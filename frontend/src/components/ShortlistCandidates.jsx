@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PythonQuiz from "./PythonQuiz";
 
 const Shortlistresumes = ({ token, jobId }) => {
   const [rankedResumes, setRankedResumes] = useState([]);
@@ -27,7 +28,7 @@ const Shortlistresumes = ({ token, jobId }) => {
         },
         body: JSON.stringify({
           jobId,
-          requiredSkills: ["ganajsbwbvs"],
+          requiredSkills: ["firebase"],
         }),
       });
 
@@ -48,11 +49,25 @@ const Shortlistresumes = ({ token, jobId }) => {
       //   alert("No resumes shortlisted.");
       //   window.location.reload();
       // }
-      
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
+  const sendTestLink = async (user_id) => {
+    console.log("Sending test link to user_id:", user_id);
+    try {
+      const response = await fetch(`http://localhost:3000/mail/${user_id}/${jobId}`,{
+        method: "GET",
+      });
+
+      if (!response.ok) {
+        alert(`HTTP error! status: ${response.status}`);
+    }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 
   return (
     <div>
@@ -91,7 +106,13 @@ const Shortlistresumes = ({ token, jobId }) => {
                         Phone No
                       </td>
                       <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
+                        JobId
+                      </td>
+                      <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
                         Score
+                      </td>
+                      <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
+                        test link
                       </td>
                     </tr>
                   </thead>
@@ -117,13 +138,27 @@ const Shortlistresumes = ({ token, jobId }) => {
                           <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
                             9999999999
                             <div className="flex mt-1 ml-auto w-fit items-center rounded-full py-2 px-3 text-left text-xs font-medium text-black lg:hidden">
-                              {resume.normalizedScore}
+                              9999999999
+                            </div>
+                          </td>
+                          <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
+                            {jobId}
+                            <div className="flex mt-1 ml-auto w-fit items-center rounded-full py-2 px-3 text-left text-xs font-medium text-black lg:hidden">
+                              {jobId}
                             </div>
                           </td>
                           <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
                             <div className="inline-flex items-center rounded-full py-2 px-3 text-xs text-black">
                               {resume.normalizedScore}
                             </div>
+                          </td>
+                          <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
+                            <button
+                              onClick={() => sendTestLink(resume.id)}
+                              className="inline-flex items-center rounded bg-blue-500 py-1 px-2 text-xs font-medium text-white hover:bg-blue-600"
+                            >
+                              Send
+                            </button>
                           </td>
                         </tr>
                       ))}

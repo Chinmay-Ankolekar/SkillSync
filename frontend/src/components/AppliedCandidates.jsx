@@ -67,6 +67,7 @@ const AppliedCandidates = ({ token }) => {
         <td width="50%" className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">Name</td>
         <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">Email</td>
         <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">Phone No</td>
+        <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">JobId</td>
         <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">Status</td>
       </tr>
     </thead>
@@ -85,7 +86,13 @@ const AppliedCandidates = ({ token }) => {
           <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
             9999999999
             <div className="flex mt-1 ml-auto w-fit items-center rounded-full bg-blue-600 py-2 px-3 text-left text-xs font-medium text-white lg:hidden">
-              Applied
+              9999999999
+            </div>
+          </td>
+          <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
+            {id}
+            <div className="flex mt-1 ml-auto w-fit items-center rounded-full bg-blue-600 py-2 px-3 text-left text-xs font-medium text-white lg:hidden">
+             {id}
             </div>
           </td>
           <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">

@@ -7,6 +7,8 @@ import UserDashboard from './components/UserDashboard'
 import AddJob from './components/AddJob'
 import ApplyJobs from './components/ApplyJobs'
 import AppliedCandidates from './components/AppliedCandidates'
+import PythonQuiz from './components/PythonQuiz'
+import JavaScriptQuiz from './components/JavaScriptQuiz'
 import {  Route,  Routes  } from 'react-router-dom'
 
 function App() {
@@ -22,6 +24,7 @@ function App() {
    {
       let data = JSON.parse(sessionStorage.getItem('token'))
       setToken(data)
+      
     }
   },[] )
   
@@ -33,13 +36,15 @@ function App() {
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/signup" element={<Signup />} />
 
-        {token ? (
+        {true ? (
         <>
           <Route path={'/dashboard'} element={<Dashboard token={token}/>} />
           <Route path={'/userdashboard'} element={<UserDashboard token={token}/>} />
           <Route path={'/addjob'} element={<AddJob token={token}/>} />
           <Route path={'/jobs/:id'} element={<ApplyJobs token={token}/>} />
           <Route path={'/appliedcandidates/:id'} element={<AppliedCandidates token={token}/>} />
+          <Route path={'/python'} element={<PythonQuiz token={token}/>} />
+          <Route path={'/JavaScriptQuestion'} element={<JavaScriptQuiz token={token}/>} />
         </>
       ) : (
          <>

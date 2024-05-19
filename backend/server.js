@@ -5,9 +5,9 @@ const { createClient } = require("@supabase/supabase-js");
 const fs = require("fs");
 const path = require("path");
 const pdf = require("pdf-parse");
+const nodemailer = require('nodemailer');
 require("dotenv").config();
 const cors = require("cors");
-const { log } = require("console");
 
 app.use(cors());
 app.use(express.json());
@@ -50,7 +50,6 @@ async function downloadFilesAndCreateFolder(jobId) {
     }
 
     for (const file of data) {
-      console.log("Downloading file:", file.name);
 
       const { data: fileData, error: fileError } = await supabase.storage
         .from("resumes")
@@ -64,7 +63,7 @@ async function downloadFilesAndCreateFolder(jobId) {
 
       fs.writeFileSync(path.join(folderPath, file.name), buffer);
 
-      console.log("File downloaded and saved successfully:", file.name);
+
     }
   } catch (error) {
     console.error("Error:", error.message);
@@ -142,7 +141,7 @@ app.post("/rank", async (req, res) => {
 
     for (let i = 0; i < rankedResumes.length; i++) {
       const userId = rankedResumes[i].resume.match(/(\w+-\w+-\w+-\w+-\w+)/)[0];
-      console.log(userId);
+   
       const userData = await supabase
         .from('users')
         .select('email, fullname')
@@ -157,6 +156,7 @@ app.post("/rank", async (req, res) => {
 
       rankedResumes[i].email = userData.data.email;
       rankedResumes[i].fullname = userData.data.fullname;
+      rankedResumes[i].id = userId;
     }
 
     res.status(200).json({ rankedResumes });
@@ -166,6 +166,48 @@ app.post("/rank", async (req, res) => {
   }
 });
 
+
+// Step 1
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.email,
+        pass: process.env.pass 
+    }
+});
+
+app.get('/mail/:id/:jobId', async (req, res) => {
+  const { id, jobId } = req.params;
+  const testLink = `http://localhost:5173/python?id=${id}&jobId=${jobId}`;
+
+  const { data: jobData, error: jobError } = await supabase
+    .from('jobs')
+    .select('*')
+    .eq('id', jobId);
+
+  const { data: userData, error: userError } = await supabase
+    .from('users')
+    .select('email')
+    .eq('id', id);
+
+    console.log(userData[0].email);
+
+  let textMailOptions = {
+    from: 'chinmaysankolekar@gmail.com',
+    to: `${userData[0].email}`,
+    subject: `Invitation for Job Test - Role: ${jobData[0].designation}`,
+    text: `Dear Applicant,\n\nWe are pleased to invite you to take the job test for the role ${jobData[0].designation} as part of our hiring process. \n\nYou can access the test using the following link: ${testLink}\n\nThank you for your interest in joining our team. We look forward to your participation.\n\nBest regards,\n${jobData[0].company_name}`
+};
+
+  transporter.sendMail(textMailOptions, (err, data) => {
+      if (err) {
+          console.log('Error occurs for text email', err);
+          res.status(500).send('Failed to send text email');
+      } else {
+          console.log('Text Email sent!!!');
+      }
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
