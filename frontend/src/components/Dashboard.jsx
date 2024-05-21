@@ -85,13 +85,13 @@ function Dashboard({ token }) {
                 href="#"
                 className="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4"
               >
-                <div className="group relative h-16 w-16 overflow-hidden rounded-lg">
+                {/* <div className="group relative h-16 w-16 overflow-hidden rounded-lg">
                   <img
                     src="src\assets\netapp-101.png"
                     alt=""
                     className="h-full w-full object-cover text-gray-700"
                   />
-                </div>
+                </div> */}
               </a>
               <div className="col-span-11 flex flex-col pr-8 text-left sm:pl-4">
                 <h3 className="text-lg font-semibold text-gray-800">Company: {job.company_name}</h3>

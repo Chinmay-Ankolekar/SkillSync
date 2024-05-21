@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import supabase from '../supabase/supabase';
+import { useNavigate } from 'react-router-dom';
 
-const PythonQuiz = ({token}) => {
+const PythonQuiz = () => {
   const questions = [
     {
       question: "What is the output of the following code?\n\n```python\nprint([i for i in range(5)])\n```",
@@ -71,31 +73,87 @@ const PythonQuiz = ({token}) => {
   ];
 
   const [searchParams] = useSearchParams();
-
-    const id = searchParams.get('id');
-    const jobId = searchParams.get('jobId');
-
-
-
+  const id = searchParams.get('id');
+  const jobId = searchParams.get('jobId');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
   const [score, setScore] = useState(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [timer, setTimer] = useState(300);
+  const navigate = useNavigate();
+
+  const checkDate = async (jobId) => {
+    try {
+      const { data, error } = await supabase
+        .from('test_end_date')
+        .select('end_date')
+        .eq('job_id', jobId)
+        .single();
+  
+      if (error) {
+        console.error('Error fetching test_end_date:', error.message);
+        return;
+      }
+  
+      if (data) {
+        const today = new Date().toISOString().split('T')[0]; 
+        const endDate = new Date(data.end_date).toISOString().split('T')[0]; 
+  
+        if (today === endDate) {
+          alert('Test date ended');
+          navigate('/login');
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching test_end_date:', error.message);
+    }
+  };
+
+  useEffect(() => {
+    checkDate(jobId);
+  }, [jobId]);
+
+  useEffect(() => {
+    const checkAndSetAttempted = async () => {
+      const { data, error } = await supabase
+        .from('test_attempted')
+        .select('attempted')
+        .eq('user_id', id)
+        .eq('job_id', jobId)
+        .single();
+
+      if (data && data.attempted) {
+        alert('You have already attempted this quiz. You will be redirected to the login page.');
+        navigate('/login');
+      } else {
+        const { error: insertError } = await supabase
+          .from('test_attempted')
+          .insert({ user_id: id, job_id: jobId, attempted: true });
+
+        if (insertError) {
+          console.error('Error inserting test_attempted:', insertError);
+        }
+      }
+    };
+
+    checkAndSetAttempted();
+  }, [id, jobId, navigate]);
 
   useEffect(() => {
     const countdown = setInterval(() => {
       setTimer(prevTimer => {
         if (prevTimer <= 0) {
           clearInterval(countdown);
-          handleSubmit();
+          alert('Time is up! You will be redirected to the login page.');
+          navigate('/login');
           return 0;
         }
         return prevTimer - 1;
       });
     }, 1000);
+
     return () => clearInterval(countdown);
-  }, []);
+  }, [navigate]);
 
   const handleOptionChange = (option) => {
     setUserAnswer(option);
@@ -114,15 +172,25 @@ const PythonQuiz = ({token}) => {
     }
   };
 
-  const evaluateQuiz = () => {
+  const evaluateQuiz = async () => {
     const totalScore = questions.reduce((acc, question, index) => {
       return acc + (userAnswers[index] === question.answer ? 1 : 0);
     }, 0);
     setScore(totalScore);
+
+    const { error } = await supabase
+      .from('user_scores')
+      .insert({ user_id: id, job_id: jobId, score: totalScore });
+
+    if (error) {
+      console.error('Error inserting user_score:', error);
+    } else {
+      alert('Quiz completed. Your score has been recorded.');
+      navigate('/login');
+    }
   };
 
   return (
-    
     <div className="quiz-app bg-white border-4 border-gray-200 p-4 rounded-2xl max-w-3xl mx-auto mt-10 shadow-lg">
       <div className="quiz-info flex justify-between p-4 bg-gray-100 rounded-2xl mb-4">
         <div className="category">
@@ -176,16 +244,13 @@ const PythonQuiz = ({token}) => {
         </>
       )}
 
-      {score !== null && (
+      {/* {score !== null && (
         <div className="results text-center font-bold text-2xl mt-4">
           Your Score: <span className={score === questions.length ? 'text-yellow-500' : score > questions.length / 2 ? 'text-green-500' : 'text-red-500'}>{score}/{questions.length}</span>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
 
 export default PythonQuiz;
-
-
-

@@ -209,6 +209,51 @@ app.get('/mail/:id/:jobId', async (req, res) => {
   });
 });
 
+
+app.get('/offer/:id/:jobId', async (req, res) => {
+  const { id, jobId } = req.params;
+
+  const { data: jobData, error: jobError } = await supabase
+    .from('jobs')
+    .select('*')
+    .eq('id', jobId);
+
+  const { data: userData, error: userError } = await supabase
+    .from('users')
+    .select('email')
+    .eq('id', id);
+
+    console.log(userData[0].email);
+
+    let offerLetterMailOptions = {
+      from: 'chinmaysankolekar@gmail.com',
+      to: `${userData[0].email}`,
+      subject: `Job Offer - Role: ${jobData[0].designation}`,
+      text: `Dear ${userData[0].fullname},
+    
+    Congratulations!
+    
+    We are delighted to offer you the position of ${jobData[0].designation} at ${jobData[0].company_name}. Your skills and experience are a great match for our team.
+    
+    We look forward to welcoming you to our company. Please let us know your acceptance of this offer by replying to us.
+    
+    Thank you for your interest in joining our team. If you have any questions, please do not hesitate to reach out.
+    
+    Best regards,
+    ${jobData[0].company_name}`
+    };
+    
+
+  transporter.sendMail(offerLetterMailOptions, (err, data) => {
+      if (err) {
+          console.log('Error occurs for text email', err);
+          res.status(500).send('Failed to send text email');
+      } else {
+          console.log('Text Email sent!!!');
+      }
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

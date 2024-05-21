@@ -35,15 +35,16 @@ function App() {
         <Route path="/" element={<Login setToken={setToken} />} />
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path={'/python'} element={<PythonQuiz />} />
 
-        {true ? (
+        {token ? (
         <>
           <Route path={'/dashboard'} element={<Dashboard token={token}/>} />
           <Route path={'/userdashboard'} element={<UserDashboard token={token}/>} />
           <Route path={'/addjob'} element={<AddJob token={token}/>} />
           <Route path={'/jobs/:id'} element={<ApplyJobs token={token}/>} />
           <Route path={'/appliedcandidates/:id'} element={<AppliedCandidates token={token}/>} />
-          <Route path={'/python'} element={<PythonQuiz token={token}/>} />
+          
           <Route path={'/JavaScriptQuestion'} element={<JavaScriptQuiz token={token}/>} />
         </>
       ) : (
