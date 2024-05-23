@@ -190,13 +190,21 @@ app.get('/mail/:id/:jobId', async (req, res) => {
     .select('email')
     .eq('id', id);
 
-    console.log(userData[0].email);
+
+    const {data: jobTestDate, error: jobTestError} = await supabase
+    .from('test_end_date')
+    .select('end_date')
+    .eq('job_id', jobId);
+
 
   let textMailOptions = {
     from: 'chinmaysankolekar@gmail.com',
     to: `${userData[0].email}`,
     subject: `Invitation for Job Test - Role: ${jobData[0].designation}`,
-    text: `Dear Applicant,\n\nWe are pleased to invite you to take the job test for the role ${jobData[0].designation} as part of our hiring process. \n\nYou can access the test using the following link: ${testLink}\n\nThank you for your interest in joining our team. We look forward to your participation.\n\nBest regards,\n${jobData[0].company_name}`
+    text: `Dear Applicant,\n\nWe are pleased to invite you to take the job test for the role ${jobData[0].designation} as part of our hiring process. \n\nYou can access the test using the following link: ${testLink}\n\nThank you for your interest in joining our team. We look forward to your participation.\n\nBest regards,\n${jobData[0].company_name}
+    
+    Take test before : ${jobTestDate[0].end_date}
+    `
 };
 
   transporter.sendMail(textMailOptions, (err, data) => {
@@ -220,10 +228,9 @@ app.get('/offer/:id/:jobId', async (req, res) => {
 
   const { data: userData, error: userError } = await supabase
     .from('users')
-    .select('email')
+    .select('email, fullname')
     .eq('id', id);
 
-    console.log(userData[0].email);
 
     let offerLetterMailOptions = {
       from: 'chinmaysankolekar@gmail.com',

@@ -31,19 +31,19 @@ const UserDashboard = ({ token }) => {
       <Navbar token={token}/>
 
       <div className="my-10 mx-auto flex w-screen max-w-screen-lg flex-col rounded-3xl bg-green-50 px-4">
-      <p className="mt-20 text-center sm:text-lg font-semibold text-lime-500">Our Blog</p>
-      <h1 className="mx-auto mt-2 max-w-3xl text-center text-2xl font-semibold leading-tight sm:text-4xl md:text-5xl">Resources for makers and creaters to learn, sell & Grow</h1>
-      <p className="mx-auto hidden sm:block mt-4 max-w-5xl text-center text-gray-500 sm:mt-8 sm:text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo quis deleniti minus ab aliquam nemo.</p>
+      <p className="mt-20 text-center sm:text-lg font-semibold text-purple-700">Automated recruitment system</p>
+      <h1 className="mx-auto mt-2 max-w-3xl text-center text-md font-semibold leading-tight sm:text-3xl md:text-3xl">Apply for Jobs, Showcase Your Skills, and Secure Your Future: Your Career Starts Here!</h1>
+      <p className="mx-auto hidden sm:block mt-4 max-w-5xl text-center text-gray-500 sm:mt-8 sm:text-lg">Empowering Careers, Connecting Talent: Your Gateway to the Perfect Job Match!</p>
 
       <div className="mx-auto mt-8 mb-20 flex w-full flex-col space-y-2 sm:w-auto sm:flex-row sm:space-y-0 sm:space-x-6">
-        <button className="rounded-full bg-black px-10 py-3 font-medium text-white hover:opacity-80 sm:w-auto">Get Started</button>
-        <button className="rounded-full border-2 border-black px-10 py-3 font-medium text-black transition hover:bg-black hover:text-white sm:w-auto">View Pricing</button>
+        <button onClick={()=> {navigate('/jobAppliedbyUser')}} className="rounded-full bg-purple-900 px-10 py-3 font-medium text-white hover:opacity-80 sm:w-auto">Jobs Applied</button>
+        <button className="rounded-full border-2 border-purple-900 px-10 py-3 font-medium text-black transition hover:bg-purple-900 hover:text-white sm:w-auto">Apply now</button>
       </div>
     </div>
 
     <div className="text-center">
     <h1 className="text-4xl font-bold mb-4">Find your dream job now</h1>
-    <h2 className="text-2xl font-medium text-gray-600">5 lakh+ jobs for you to explore</h2>
+    <h2 className="text-2xl font-medium text-gray-600">{jobs.length} jobs for you to explore</h2>
 </div>
 
 
@@ -54,63 +54,44 @@ const UserDashboard = ({ token }) => {
         </div>
       ) : (
         jobs.map((job) => (
-          <div className="m-5" key={job.id}>
-            <div className="group mx-2 mt-10 grid max-w-screen-md grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 shadow transition hover:shadow-lg sm:mx-auto">
-              <a
-                href="#"
-                className="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4"
-              >
-                <div className="group relative h-16 w-16 overflow-hidden rounded-lg">
-                  <img
-                    src="src\assets\netapp-101.png"
-                    alt=""
-                    className="h-full w-full object-cover text-gray-700"
-                  />
-                </div>
-              </a>
-              <div className="col-span-11 flex flex-col pr-8 text-left sm:pl-4">
-                <h3 className="text-sm text-gray-600">Company Name: {job.company_name}</h3>
-                <a
-                  href="#"
-                  className="mb-3 overflow-hidden pr-7 text-lg font-semibold sm:text-xl"
-                >
-                  {" "}
-                  Role: {job.name}{" "}
-                </a>
-                <p class="overflow-hidden pr-7 text-sm">Required Skills: {job.skills}</p>
- 
+          <>
 
-        
-                <div className="mt-5 flex flex-col space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
-                  <div>
-                    Experience:
-                    <span className="ml-2 mr-3 rounded-full bg-green-100 px-2 py-0.5 text-green-900">
-                      {" "}
-                      {job.experience} Years{" "}
-                    </span>
-                  </div>
-                  <div>
-                    Salary:
-                    <span className="ml-2 mr-3 rounded-full bg-blue-100 px-2 py-0.5 text-blue-900">
-                      {job.salary}
-                    </span>
-                  </div>
-                </div>
-                <div className="mt-5 ">
-                  <button
-                    className="w-38 mt-1 mr-3 inline-flex items-center rounded-md bg-green-500 px-10 py-3 font-medium text-white hover:opacity-80"
-                    onClick={() => navigate(`/jobs/${job.id}`)}
-                  >
-                    Apply Jobs
-                    <i className="fa-solid fa-arrow-right"></i>
-                  </button>
-                 
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="relative flex  flex-col items-center justify-center overflow-hidden p-6 sm:py-12">
+  <div class="bg-white shadow-xl shadow-gray-100 w-full max-w-4xl flex flex-col sm:flex-row gap-3 sm:items-center justify-between px-5 py-4 rounded-md">
+    <div>
+      <span class="text-purple-800 text-sm">Engineering</span>
+      <h3 class="font-bold mt-px">{job.name}</h3>
+      <div class="flex items-center gap-3 mt-2">
+        <span class="bg-purple-100 text-purple-700 rounded-full px-3 py-1 text-sm">Full-time</span>
+        <span class="text-slate-600 text-sm flex gap-1 items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          {job.location}
+        </span>
+      </div>
+    </div>
+    <div>
+      <button   onClick={() => navigate(`/jobs/${job.id}`)}  class="bg-purple-900 text-white font-medium px-4 py-2 rounded-md flex gap-1 items-center">
+        Apply Now
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+          </>
         ))
       )}
+      
+
+
+      
+
 
     </>
   );

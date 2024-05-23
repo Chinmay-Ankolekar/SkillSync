@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Navbar = ({token}) => {
   let navigate = useNavigate();
@@ -9,12 +10,13 @@ const Navbar = ({token}) => {
 
     return (
         <div>
+          
       <header class="text-slate-700 container relative mx-auto flex flex-col overflow-hidden px-4 py-4 lg:flex-row lg:items-center">
-        <a href="#" class="flex items-center whitespace-nowrap text-2xl font-black">
+        <a class="flex items-center whitespace-nowrap text-2xl font-black">
           <span class="mr-2 w-8">
             <img src="/images/JOJj79gp_Djhwdp_ZOKLL.png" alt="" />
           </span>
-          SkillMatch
+          SkillSync
         </a>
         <input type="checkbox" class="peer hidden" id="navbar-open" />
         <label class="absolute top-5 right-5 cursor-pointer lg:hidden" for="navbar-open">
@@ -37,20 +39,20 @@ const Navbar = ({token}) => {
 
           {
             token.user.user_metadata.userType === "hr" ? (
-              <li class="lg:mr-12"><a class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" href="#">Applied Candidates</a></li>
+              <button  class="lg:mr-12"><Link to='/allJobsAppliedCandidates' class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" >Applied Candidates</Link></button>
             ) : (
-              <li class="lg:mr-12"><a class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" href="#">Jobs Applied</a></li>
+              <li class="lg:mr-12"><Link to='/jobAppliedbyUser' class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" >Jobs Applied</Link></li>
             )
           }
 
             
-            <li class="lg:mr-12"><a class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" href="#">Contact</a></li>
-            <li class="lg:mr-12"><a class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" href="#">FAQ</a></li>
+            <li class="lg:mr-12"><Link to='/contactUs' class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" href="#">Contact</Link></li>
+            <li class="lg:mr-12"><Link to='/faq' class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" >FAQ</Link></li>
           </ul>
           <hr class="mt-4 w-full lg:hidden" />
           <div class="my-4 flex items-center space-x-6 space-y-2 lg:my-0 lg:ml-auto lg:space-x-8 lg:space-y-0">
-            <button  class="whitespace-nowrap rounded font-medium transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2 hover:text-opacity-50" > Profile </button>
-            <button onClick={Logout} class="whitespace-nowrap rounded-xl bg-black px-5 py-3 font-medium text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 hover:bg-gray-700">Logout</button>
+            <button onClick={()=> {navigate('/profile')}} class="whitespace-nowrap rounded font-medium transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2 hover:text-opacity-50" > Profile </button>
+            <button onClick={Logout} class="whitespace-nowrap rounded-xl bg-purple-800 px-5 py-3 font-medium text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 hover:bg-purple-900">Logout</button>
           </div>
         </nav>
       </header>

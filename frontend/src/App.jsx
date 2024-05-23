@@ -10,6 +10,12 @@ import AppliedCandidates from './components/AppliedCandidates'
 import PythonQuiz from './components/PythonQuiz'
 import JavaScriptQuiz from './components/JavaScriptQuiz'
 import {  Route,  Routes  } from 'react-router-dom'
+import TestEnded from './components/TestEnded'
+import AllCandidatesApplied from './components/AllCandidatesApplied'
+import JobsAppliedByCandidates from './components/JobsAppliedByCandidates'
+import Profile from './components/Profile'
+import Contact from './components/Contact'
+import FAQ from './components/FAQ'
 
 function App() {
   const [token, setToken] = useState(false)
@@ -32,10 +38,11 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Login setToken={setToken} />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path={'/python'} element={<PythonQuiz />} />
+        <Route path={'/testended'} element={<TestEnded />} />
 
         {token ? (
         <>
@@ -44,8 +51,12 @@ function App() {
           <Route path={'/addjob'} element={<AddJob token={token}/>} />
           <Route path={'/jobs/:id'} element={<ApplyJobs token={token}/>} />
           <Route path={'/appliedcandidates/:id'} element={<AppliedCandidates token={token}/>} />
-          
+          <Route path={'/allJobsAppliedCandidates'} element={<AllCandidatesApplied token={token}/>} />
           <Route path={'/JavaScriptQuestion'} element={<JavaScriptQuiz token={token}/>} />
+          <Route path={'/jobAppliedbyUser'} element={<JobsAppliedByCandidates token={token}/>} />
+          <Route path={'/profile'} element={<Profile token={token}/>} />
+          <Route path={'/contactUs'} element={<Contact token={token}/>} />
+          <Route path={'/faq'} element={<FAQ token={token}/>} />
         </>
       ) : (
          <>

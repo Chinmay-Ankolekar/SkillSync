@@ -135,7 +135,6 @@ const PythonQuiz = () => {
         }
       }
     };
-
     checkAndSetAttempted();
   }, [id, jobId, navigate]);
 
@@ -190,6 +189,20 @@ const PythonQuiz = () => {
     }
   };
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        alert('Test ended due to tab change.');
+        navigate('/testended');
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [navigate]);
+
   return (
     <div className="quiz-app bg-white border-4 border-gray-200 p-4 rounded-2xl max-w-3xl mx-auto mt-10 shadow-lg">
       <div className="quiz-info flex justify-between p-4 bg-gray-100 rounded-2xl mb-4">
@@ -225,7 +238,7 @@ const PythonQuiz = () => {
           </div>
           <button
             onClick={handleSubmit}
-            className="submit-button bg-blue-500 text-white px-4 py-2 rounded w-full"
+            className="submit-button bg-purple-900 text-white px-4 py-2 rounded w-full"
           >
             Submit Answer
           </button>
@@ -235,7 +248,7 @@ const PythonQuiz = () => {
               {questions.map((_, index) => (
                 <span
                   key={index}
-                  className={`w-4 h-4 rounded-full mr-2 ${index <= currentIndex ? 'bg-blue-500' : 'bg-white border'}`}
+                  className={`w-4 h-4 rounded-full mr-2 ${index <= currentIndex ? 'bg-purple-900' : 'bg-white border'}`}
                 ></span>
               ))}
             </div>
@@ -244,11 +257,6 @@ const PythonQuiz = () => {
         </>
       )}
 
-      {/* {score !== null && (
-        <div className="results text-center font-bold text-2xl mt-4">
-          Your Score: <span className={score === questions.length ? 'text-yellow-500' : score > questions.length / 2 ? 'text-green-500' : 'text-red-500'}>{score}/{questions.length}</span>
-        </div>
-      )} */}
     </div>
   );
 };

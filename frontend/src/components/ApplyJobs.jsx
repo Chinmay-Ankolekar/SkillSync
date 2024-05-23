@@ -70,102 +70,110 @@ const ApplyJobs = ({ token }) => {
 
   return (
     <>
-     <Navbar token={token} />
+      <Navbar token={token} />
 
-     <div class="w-screen bg-white pt-20">
-  <main class="relative mx-auto px-10 md:max-w-screen-md">
-    {/* <div class="top-20 -left-56 mb-10 w-full max-w-xs rounded-md border bg-white px-6 py-6 shadow-md lg:absolute lg:w-56">
-      <div class="pb-2 text-xl font-medium text-orange-600">Table of Contents</div>
-      <hr class="h-1 w-10 bg-orange-600" />
-      <div class="mt-4">
-        <div class="mb-3">
-          <a class="mb-1 text-sm font-medium text-orange-600 hover:text-orange-600" href="#section-one">Section One</a>
-        </div>
-        <div class="mb-3">
-          <a class="mb-1 text-sm font-medium text-gray-600 hover:text-orange-600" href="#section-two">Section Two</a>
-        </div>
-        <div class="mb-3">
-          <a class="mb-1 text-sm font-medium text-gray-600 hover:text-orange-600" href="#">How to get Stuff Done</a>
-        </div>
-        <div class="mb-3">
-          <a class="mb-1 text-sm font-medium text-gray-600 hover:text-orange-600" href="#">Lorem ipsum dolor</a>
-        </div>
-        <div class="mb-3">
-          <a class="mb-1 text-sm font-medium text-gray-600 hover:text-orange-600" href="#">Are Aliens tiny?</a>
-        </div>
-        <div class="mb-3">
-          <a class="mb-1 text-sm font-medium text-gray-600 hover:text-orange-600" href="#">Ipsum Dolor</a>
-        </div>
-      </div>
-    </div> */}
-   <div class="top-20 -left-56 mb-10 w-full max-w-xs rounded-md border bg-white px-6 py-6 shadow-md lg:absolute lg:w-64">
-  <div class="pb-2 text-xl font-medium text-orange-600">Apply for Job</div>
-  <hr class="h-1 w-10 bg-orange-600" />
-  <div class="mt-4">
-    <label htmlFor="resume-upload" className="block text-sm font-medium text-gray-700">
-      Upload Your Resume
-    </label>
-    <input
-      id="resume-upload"
-      type="file"
-      className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-      onChange={(e) => applyJob(e.target.files[0])}
-    />
-    <p className="mt-2 text-sm text-gray-500">
-      <span className="font-semibold">Note:</span>
-       By uploading your resume, you are applying for the job.
-    </p>
-  </div>
-</div>
-
-
-    <article class="text-gray-800 mb-10 ml-5">
-      {/* <h2 id="section-one" class="mb-4 text-3xl font-bold">Section One</h2>
-      <p class="mb-10 text-gray-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur quae asperiores error hic minima dicta. Assumenda, enim. Voluptate facere ea eveniet quaerat neque ipsam iste corrupti sapiente sed! Temporibus, magni?</p>
-      <p class="mb-10 text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, quasi! Vitae voluptatibus, illum voluptatum dolores excepturi, architecto rem voluptatem minus nulla expedita tempore, ratione non animi dicta eum consequatur nam hic veniam accusantium vel? Cumque magni provident eius temporibus soluta iusto corporis vel eum at consectetur architecto eos nisi voluptas quas natus dolores, reiciendis incidunt esse inventore ab impedit quos. Expedita exercitationem qui quae architecto libero reiciendis laborum nostrum commodi, omnis vero, earum dicta provident! Necessitatibus cupiditate, voluptate eos est incidunt soluta nam voluptatum? Quidem repellendus neque enim quos nobis ex fugiat autem placeat officia illum inventore, itaque quibusdam rerum?</p>
-      <h2 id="section-two" class="mb-4 text-3xl font-bold">Section Two</h2>
-      <p class="mb-10 text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, quasi! Vitae voluptatibus, illum voluptatum dolores excepturi, architecto rem voluptatem minus nulla expedita tempore, ratione non animi dicta eum consequatur nam hic veniam accusantium vel? Cumque magni provident eius temporibus soluta iusto corporis vel eum at consectetur architecto eos nisi voluptas quas natus dolores, reiciendis incidunt esse inventore ab impedit quos. Expedita exercitationem qui quae architecto libero reiciendis laborum nostrum commodi, omnis vero, earum dicta provident! Necessitatibus cupiditate, voluptate eos est incidunt soluta nam voluptatum? Quidem repellendus neque enim quos nobis ex fugiat autem placeat officia illum inventore, itaque quibusdam rerum?</p> */}
-
-      <div>
-        <h2 class="text-3xl font-bold ">Job Information</h2>
-        {jobs.map((job) => (
-          <div key={job.id} className="mt-6">
-            <h3 class="text-2xl font-semibold">{job.name}</h3>
-            <p class="mt-2 text-gray-600 "><span className="font-semibold">Company:</span> {job.company_name}</p>
-            <p class="mt-2 text-gray-600 "><span className="font-semibold">Designation:</span> {job.designation}</p>
-            <p class="mt-2 text-gray-600 "><span className="font-semibold">Description</span> {job.description}</p>
-            <p class="mt-2 text-gray-600 "><span className="font-semibold">Skills:</span> {job.skills}</p>
-            <p class="mt-2 text-gray-600 "><span className="font-semibold">Experience:</span> {job.experience} Years</p>
-            <p class="mt-2 text-gray-600 "><span className="font-semibold">Location:</span> {job.location}</p>
-            <p class="mt-2 text-gray-600 "><span className="font-semibold">Salary:</span> {job.salary}</p>
-          </div>
-        ))}
-      </div>
-    </article>
-  </main>
-</div>
-
-
-
-
-
-
-      {/* <h1>Apply Jobs</h1>
       {jobs.map((job) => (
-        <div key={job.id}>
-          <h1>{job.company_name}</h1>
-          <h1>{job.name}</h1>
-          <h3>{job.designation}</h3>
-          <p>{job.description}</p>
-          <p>{job.skills}</p>
-          <p>{job.experience}</p>
-          <p>{job.location}</p>
-          <p>{job.salary}</p>
-          <br />
-          <br />
+        <div class="min-h-screen w-screen ">
+          <div class="w-screen bg-white pt-20">
+            <div class="px-10 md:max-w-screen-md mx-auto">
+              <div class="px-4 sm:px-0">
+                <h3 class="text-lg font-semibold leading-7 text-gray-900">
+                  Job Information
+                </h3>
+                <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+                  job details and requirements.
+                </p>
+              </div>
+              <div class="mt-6 border-t border-gray-100">
+                <dl class="divide-y divide-gray-100">
+                  <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">
+                      Company name
+                    </dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                      {job.company_name}
+                    </dd>
+                  </div>
+                  <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">
+                      Role
+                    </dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                      {job.designation}
+                    </dd>
+                  </div>
+                  <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">
+                      Skills
+                    </dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                      {job.skills}
+                    </dd>
+                  </div>
+                  <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">
+                      Experience
+                    </dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                      {job.experience} years
+                    </dd>
+                  </div>
+                  <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">
+                      Location
+                    </dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                      {job.location}
+                    </dd>
+                  </div>
+                  <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">
+                      Salary expectation
+                    </dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                      {job.salary}
+                    </dd>
+                  </div>
+                  <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">
+                      Job Description
+                    </dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                      {job.description}
+                    </dd>
+                  </div>
+                  <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">
+                      Apply
+                    </dt>
+                    <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                      <div class="mt-4">
+                        <label
+                          htmlFor="resume-upload"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Upload Your Resume
+                        </label>
+                        <input
+                          id="resume-upload"
+                          type="file"
+                          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          onChange={(e) => applyJob(e.target.files[0])}
+                        />
+                        <p className="mt-2 text-sm text-gray-500">
+                          <span className="font-semibold">Note:</span>
+                          By uploading your resume, you are applying for the
+                          job.
+                        </p>
+                      </div>
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
         </div>
       ))}
-      <input type="file" onChange={(e) => applyJob(e.target.files[0])} /> */}
     </>
   );
 };

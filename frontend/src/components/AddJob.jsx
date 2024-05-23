@@ -116,10 +116,10 @@ const AddJob = ({token}) => {
     />
 
     <div class="flex justify-between">
-      <button className="border mt-2 h-12 w-1/2 rounded-md bg-blue-600 p-2 text-center font-semibold text-white" onClick={() => addJob()}>
+      <button className="border mt-2 h-12 w-1/2 rounded-md bg-purple-800 hover:bg-purple-900 p-2 text-center font-semibold text-white" onClick={() => addJob()}>
         Add Job
       </button>
-      <button className="border mt-2 h-12 w-1/2 rounded-md bg-gray-300 p-2 text-center font-semibold" onClick={() => navigate('/dashboard')}>
+      <button className="border mt-2 h-12 w-1/2 rounded-md bg-gray-300 p-2 text-center font-semibold hover:bg-gray-400" onClick={() => navigate('/dashboard')}>
         Back
       </button>
     </div>

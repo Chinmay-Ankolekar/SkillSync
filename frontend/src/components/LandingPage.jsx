@@ -1,12 +1,18 @@
+import React from 'react';
+import Navbar from '../layouts/Navbar';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 const LandingPage = () => {
+  let navigate = useNavigate();
   return (
-    <>
-        <header class="relative flex max-w-screen-xl flex-col overflow-hidden px-4 py-4 text-indigo-900 md:mx-auto md:flex-row md:items-center">
+    <div class="relative bg-purple-50 text-gray-900">
+  {/* <header class="relative flex w-screen max-w-screen-xl flex-col overflow-hidden px-4 py-4 text-violet-900 md:mx-auto md:flex-row md:items-center">
     <a href="#" class="flex cursor-pointer items-center whitespace-nowrap text-2xl font-black">
-      <span class="mr-2 text-4xl text-indigo-500">
-        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M6.925 16.875Q5.2 16.225 4.1 14.713Q3 13.2 3 11.25q0-1.975.938-3.513Q4.875 6.2 6 5.15q1.125-1.05 2.062-1.6L9 3v2.475q0 .625.45 1.062q.45.438 1.075.438q.35 0 .65-.15q.3-.15.5-.425L12 6q.95.55 1.625 1.35t1.025 1.8l-1.675 1.675q-.05-.6-.287-1.175q-.238-.575-.638-1.05q-.35.2-.738.287q-.387.088-.787.088q-1.1 0-1.987-.612Q7.65 7.75 7.25 6.725q-.95.925-1.6 2.062Q5 9.925 5 11.25q0 .775.275 1.462q.275.688.75 1.213q.05-.5.287-.938q.238-.437.588-.787L9 10.1l2.15 2.1q.05.05.1.125t.1.125l-1.425 1.425q-.05-.075-.087-.125q-.038-.05-.088-.1L9 12.925l-.7.7q-.125.125-.212.287q-.088.163-.088.363q0 .3.175.537q.175.238.45.363ZM9 10.1Zm0 0ZM7.4 22L6 20.6L19.6 7L21 8.4L17.4 12H21v2h-5.6l-.5.5l1.5 1.5H21v2h-2.6l2.1 2.1l-1.4 1.4l-2.1-2.1V22h-2v-4.6l-1.5-1.5l-.5.5V22h-2v-3.6Z" /></svg>
+      <span class="mr-2 w-8">  
+        <img src="/images/JOJj79gp_Djhwdp_ZOKLL.png" alt="" /> 
       </span>
-      streamio
+      spline
     </a>
     <input type="checkbox" class="peer hidden" id="navbar-open" />
     <label class="absolute top-5 right-7 cursor-pointer md:hidden" for="navbar-open">
@@ -21,130 +27,106 @@ const LandingPage = () => {
         <li class="md:mr-12"><a href="#">Features</a></li>
         <li class="md:mr-12"><a href="#">Support</a></li>
         <li class="md:mr-12">
-          <button class="rounded-full border-2 border-indigo-600 px-6 py-1 text-indigo-600 transition-colors hover:bg-indigo-600 hover:text-white">Login</button>
+          <button class="rounded-full border-2 border-violet-900 px-6 py-1 text-violet-900 transition-colors hover:bg-violet-500 hover:text-white">Login</button>
         </li>
       </ul>
     </nav>
-</header>
+  </header> */}
 
-<div class="relative mx-auto flex flex-col px-4 sm:max-w-xl md:h-screen md:max-w-screen-xl md:flex-row">
+<header class="text-slate-700 container relative mx-auto flex flex-col overflow-hidden px-4 py-4 lg:flex-row lg:items-center">
+        <a class="flex items-center whitespace-nowrap text-2xl font-black">
+          <span class="mr-2 w-8">
+            <img src="/images/JOJj79gp_Djhwdp_ZOKLL.png" alt="" />
+          </span>
+          SkillSync
+        </a>
+        <input type="checkbox" class="peer hidden" id="navbar-open" />
+        <label class="absolute top-5 right-5 cursor-pointer lg:hidden" for="navbar-open">
+          <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </label>
+        <nav aria-label="Header Navigation" class="peer-checked:pt-8 peer-checked:max-h-60 flex max-h-0 w-full flex-col items-center overflow-hidden transition-all lg:ml-24 lg:max-h-full lg:flex-row">
+          <ul class="flex w-full flex-col items-center space-y-2 lg:flex-row lg:justify-center lg:space-y-0">
+           
+           {/* {
+              token.user.user_metadata.userType === "hr" ? (
+                <button class="lg:mr-12"><a class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" onClick={()=> navigate('/dashboard')}>Home</a></button>
+              ) : (
+                <button class="lg:mr-12"><a class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" onClick={()=> navigate('/userdashboard')}>Home</a></button>
+              )
+           } */}
 
-  <div class="mx-auto mt-10 w-full max-w-xl md:mt-36 lg:max-w-screen-xl">
-    <div class="mb-16 lg:mb-0 lg:max-w-lg">
-      <div class="mb-6 max-w-xl">
+            {/* <li class="lg:mr-12"><a class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" href="#">Home</a></li> */}
+
+          {/* {
+            token.user.user_metadata.userType === "hr" ? (
+              <button  class="lg:mr-12"><Link to='/allJobsAppliedCandidates' class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" >Applied Candidates</Link></button>
+            ) : (
+              <li class="lg:mr-12"><Link to='/jobAppliedbyUser' class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" >Jobs Applied</Link></li>
+            )
+          } */}
+
+            
+            {/* <li class="lg:mr-12"><Link to='/contactUs' class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" href="#">Contact</Link></li>
+            <li class="lg:mr-12"><Link to='/faq' class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2" >FAQ</Link></li> */}
+          </ul>
+          <hr class="mt-4 w-full lg:hidden" />
+          <div class="my-4 flex items-center space-x-6 space-y-2 lg:my-0 lg:ml-auto lg:space-x-8 lg:space-y-0">
+            {/* <button onClick={()=> {navigate('/profile')}} class="whitespace-nowrap rounded font-medium transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2 hover:text-opacity-50" > Profile </button> */}
+            <button onClick={()=> {navigate('/login')}}  class="whitespace-nowrap rounded-xl bg-purple-800 px-5 py-3 font-medium text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 hover:bg-purple-900">Login</button>
+          </div>
+        </nav>
+      </header>
+
+  <div class="relative py-12 sm:py-16 lg:py-20 lg:pb-36">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto grid max-w-lg grid-cols-1 gap-y-12 lg:max-w-full lg:grid-cols-2 lg:items-center lg:gap-x-8">
         <div>
-          <p class="bg-teal-accent-400 mb-4 inline-block rounded-full px-3 py-px text-xs font-semibold uppercase tracking-wider text-indigo-900">INTRODUCING</p>
+          <div class="text-center lg:text-left">
+            <h1 class="max-w-md text-4xl font-bold leading-snug sm:text-5xl sm:leading-snug">
+              Reimagine Web <br class="block sm:hidden" />
+              3D <br class="hidden sm:block" />
+              with <span class="rounded-xl bg-purple-600 px-2 pb-2 text-white">Spline</span>
+            </h1>
+            <p class="mt-2 text-lg text-gray-600 sm:mt-8">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <div class="mt-8 flex flex-col items-center justify-center sm:flex-row sm:space-x-4 lg:justify-start">
+              <button class="relative mt-4 rounded-lg border-2 border-purple-600 bg-purple-600 px-6 py-2 font-medium text-white transition hover:translate-y-1">
+                <div class="-scale-x-100 absolute left-0 -bottom-10 hidden h-10 w-10 -rotate-12 text-purple-600 md:inline-flex">
+                  <svg viewBox="0 0 82 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 21.3963C0.189514 19.1422 0.475057 16.717 0.554355 14.2852C0.582363 13.435 0.32301 12.6326 1.24839 12.1517C1.43863 12.053 1.7169 11.8956 1.85767 11.9661C4.2446 13.1626 6.90906 13.1934 9.41312 13.8814C11.09 14.3423 12.6519 15.089 13.7134 16.5797C13.9251 16.8774 13.9105 17.3427 14 17.7305C13.6228 17.8077 13.2227 18.01 12.8727 17.9421C10.3283 17.4477 7.78825 16.9245 5.25946 16.353C4.46612 16.1737 4.32244 16.4862 4.22859 17.1961C4.0118 18.8342 3.66769 20.4541 3.43198 22.0899C3.33086 22.7891 3.36905 23.509 3.35123 24.2197C3.34977 24.2791 3.44107 24.3474 3.43052 24.3989C3.32213 24.9318 3.2712 25.8796 3.07114 25.9142C2.49387 26.0144 1.77655 25.8915 1.25603 25.5961C-0.352473 24.6832 0.143681 23.0129 0 21.3963Z" fill="currentColor" />
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M33.9279 29.9296C33.9687 30.0252 34.0103 30.1211 34.0512 30.2167L36.776 28.708C36.7189 28.6018 36.6613 28.4961 36.6041 28.3903C35.7123 28.9033 34.8197 29.4166 33.9279 29.9296ZM55.213 27.9357C55.2513 28.0076 55.2895 28.0795 55.3278 28.1513C56.8382 27.5018 58.3486 26.8518 59.8593 26.2019C59.8129 26.092 59.7661 25.9821 59.7197 25.8726C58.2175 26.5602 56.7153 27.2481 55.213 27.9357ZM40.7384 18.9565C40.5279 17.8215 40.3393 16.6815 40.0998 15.5525C39.952 14.8551 39.5106 14.6711 38.8099 14.825C36.6153 15.3082 34.9909 17.2686 34.7963 19.6189C34.584 22.1806 36.0472 23.7605 37.8517 25.1395C37.9927 25.2475 38.5155 25.0604 38.6986 24.8591C40.2045 23.1998 40.6396 21.163 40.7384 18.9565ZM47.8846 27.7513C53.9169 27.9699 58.9887 25.6539 63.5351 21.8258C68.7108 17.4677 72.7252 12.1435 76.2413 6.39113C77.3061 4.64903 78.3271 2.87833 79.4328 1.16371C79.7291 0.70344 80.2137 0.234515 80.706 0.0824723C81.0457 -0.0225277 81.5473 0.410268 81.9765 0.603333C81.8444 0.859247 81.7237 1.12306 81.5774 1.37032C81.1827 2.03645 80.7194 2.66758 80.3867 3.36306C79.3033 5.6264 78.3041 7.93113 77.1981 10.1824C76.4525 11.6998 75.639 13.1905 74.7457 14.6225C74.1814 15.5269 73.3694 16.269 72.7471 17.1414C71.7606 18.5237 70.9604 20.0611 69.8622 21.3395C68.1531 23.33 66.4111 25.3434 64.4139 27.0174C59.9989 30.718 54.9038 32.5263 49.0801 32.1605C46.3701 31.9904 43.6835 31.9283 41.122 30.8655C40.842 30.7492 40.3185 30.9333 40.0448 31.1527C37.2899 33.3656 34.1239 34.5277 30.6632 34.7456C28.0734 34.909 25.4198 35.1171 22.8828 34.7219C20.7546 34.3908 18.675 33.3742 16.7198 32.3694C14.9819 31.4756 13.3686 30.2773 11.8348 29.0418C9.65017 27.2812 8.09522 24.9795 7.06601 22.3556C6.91824 21.9789 7.17257 21.2819 7.46774 20.9267C7.79559 20.5315 8.26675 20.7212 8.80326 20.9647C10.4826 21.7271 11.1635 23.3172 12.0776 24.6916C13.809 27.2959 16.297 28.8333 19.144 29.6515C24.0015 31.0477 28.8342 30.4606 33.5239 28.7422C36.0572 27.8134 36.0323 27.708 34.1863 25.8643C31.7566 23.438 30.4122 20.5417 30.5982 17.0518C30.8143 13.0012 34.1347 10.1538 38.1338 10.4515C39.3892 10.5452 40.2439 11.3239 41.0648 12.1255C42.9294 13.9466 43.9712 16.2194 44.3347 18.7977C44.7112 21.4648 44.7806 24.1113 43.5286 26.6189C43.2264 27.2244 43.5171 27.489 44.1483 27.5187C45.3947 27.5778 46.6393 27.6719 47.8846 27.7513Z" fill="currentColor" />
+                  </svg>
+                </div>
+                Try for free
+              </button>
+              <button class="mt-4 flex items-center rounded-lg border-2 border-purple-600 px-6 py-2 font-medium text-purple-600 transition hover:translate-y-1 hover:bg-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                </svg>
+                Watch the demo
+              </button>
+            </div>
+          </div>
         </div>
-        <h2 class="mb-6 max-w-lg font-sans text-3xl font-bold tracking-tight text-slate-700 sm:text-5xl sm:leading-snug">
-          An inspiring <br />
-          new future for
-          <span class="inline-block text-indigo-600">Web 3.0</span>
-        </h2>
-        <p class="text-base text-gray-700 md:text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ullam rem voluptatem, animi tempora expedita!Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, consequuntur quaerat! Optio.</p>
-      </div>
-      <div class="flex items-center">
-        <a href="/" class="mr-6 inline-flex h-12 items-center justify-center rounded bg-indigo-600 px-6 font-medium tracking-wide text-white shadow-md outline-none transition duration-200 hover:bg-indigo-400 focus:ring"> Get started </a>
-        <a href="/" aria-label="" class="inline-flex items-center font-semibold text-indigo-600 transition-colors duration-200 hover:text-indigo-400">Learn more</a>
+
+        <div class="relative bg-violet-100 lg:bg-transparent">
+          <div class="absolute right-0 bottom-0 hidden overflow-hidden lg:inset-y-0 lg:block">
+            {/* <svg class="h-full w-full" viewBox="0 0 389 454" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 42V434L132 384V0L0 42Z" fill="rgb(139 92 246 / 0.2)" />
+              <path d="M259 62V454L132 384V0L259 62Z" fill="rgb(243 232 255)" />
+              <path d="M259 454V62L389 0V384L259 454Z" fill="rgb(139 92 246 / 0.2)" />
+            </svg> */}
+            <img src="src\assets\company-list.svg" alt="" />
+          </div>
+          <iframe class="h-[350px] lg:h-[500px] relative" src="" frameborder="0" width="100%" height="500px"></iframe>
+        </div>
       </div>
     </div>
   </div>
-
-  <div class="xl:1/2 flex h-full w-full justify-end space-x-3 overflow-hidden px-2 lg:w-2/3">
-
-    <div class="flex flex-col space-y-3 md:w-72">
-      <div class="-mt-5 hidden h-40 flex-shrink-0 rounded-xl bg-indigo-50 md:block"></div>
-      <div class="relative rounded-xl bg-white p-4 shadow-md">
-        <p class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis aliquam vero illo fuga libero nihil quisquam, aspernatur sint.</p>
-        <div class="mt-4 flex items-center">
-          <a href="#" class="relative block">
-            <img alt="" src="/images/Bm8G0V9ytRbCalT-KOSMT.png" class="mx-auto h-10 w-10 rounded-full object-cover" />
-          </a>
-          <div class="ml-2 flex flex-col justify-between">
-            <span class="text-sm font-semibold text-indigo-500"> Simon Lewis </span>
-            <span class="flex items-center text-xs text-gray-500"> Head of marketing at Resnet </span>
-          </div>
-        </div>
-      </div>
-      <div class="relative rounded-xl bg-indigo-600 p-4 shadow-md">
-        <div class="absolute -left-1 top-0 -z-10 h-5 w-5 skew-x-[28deg] bg-indigo-600"></div>
-        <p class="text-sm text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam ratione atque officia.Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis aliquam vero illo fuga libero nihil quisquam, aspernatur sint.</p>
-        <div class="mt-4 flex items-center">
-          <a href="#" class="relative block">
-            <img alt="" src="/images/y9s3xOJV6rnQPKIrdPYJy.png" class="mx-auto h-10 w-10 rounded-full object-cover" />
-          </a>
-          <div class="ml-2 flex flex-col justify-between">
-            <span class="text-sm font-semibold text-white"> Simon Lewis </span>
-            <span class="flex items-center text-xs text-white"> Head of marketing at Resnet </span>
-          </div>
-        </div>
-      </div>
-      <div class="relative rounded-xl bg-white p-4 shadow-md">
-        <p class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis aliquam vero illo fuga libero nihil quisquam, aspernatur sint.</p>
-        <div class="mt-4 flex items-center">
-          <a href="#" class="relative block">
-            <img alt="" src="/images/x4vs_ucCRWYTU_yLQ6h26.png" class="mx-auto h-10 w-10 rounded-full object-cover" />
-          </a>
-          <div class="ml-2 flex flex-col justify-between">
-            <span class="text-sm font-semibold text-indigo-500"> Simon Lewis </span>
-            <span class="flex items-center text-xs text-gray-500"> Head of marketing at Resnet </span>
-          </div>
-        </div>
-      </div>
-      <div class="-mt-10 hidden h-40 flex-shrink-0 rounded-xl bg-indigo-50 md:block"></div>
-    </div>
-
-
-    <div class="hidden w-72 flex-col space-y-3 lg:flex">
-      <div class="-mt-10 hidden h-40 flex-shrink-0 rounded-xl bg-indigo-50 md:block"></div>
-      <div class="relative rounded-xl bg-white p-4 shadow-md">
-        <p class="text-sm text-gray-600">Elit. Facilis aliquam vero illo fuga libero nihil quisquam, aspernatur sint.</p>
-        <div class="mt-4 flex items-center">
-          <a href="#" class="relative block">
-            <img alt="" src="/images/oPf2b7fqx5xa3mo68dYHo.png" class="mx-auto h-10 w-10 rounded-full object-cover" />
-          </a>
-          <div class="ml-2 flex flex-col justify-between">
-            <span class="text-sm font-semibold text-indigo-500"> Simon Lewis </span>
-            <span class="flex items-center text-xs text-gray-500"> Head of marketing at Resnet </span>
-          </div>
-        </div>
-      </div>
-      <div class="relative rounded-xl bg-white p-4 shadow-md">
-        <p class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis aliquam vero illo fuga libero nihil quisquam, aspernatur sint.</p>
-        <div class="mt-4 flex items-center">
-          <a href="#" class="relative block">
-            <img alt="" src="/images/-ytzjgg6lxK1ICPcNfXho.png" class="mx-auto h-10 w-10 rounded-full object-cover" />
-          </a>
-          <div class="ml-2 flex flex-col justify-between">
-            <span class="text-sm font-semibold text-indigo-500"> Simon Lewis </span>
-            <span class="flex items-center text-xs text-gray-500"> Head of marketing at Resnet </span>
-          </div>
-        </div>
-      </div>
-      <div class="relative rounded-xl bg-white p-4 shadow-md">
-        <p class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, pariatur. elit. Facilis aliquam vero illo fuga libero nihil quisquam, aspernatur sint.</p>
-        <div class="mt-4 flex items-center">
-          <a href="#" class="relative block">
-            <img alt="" src="/images/Bm8G0V9ytRbCalT-KOSMT.png" class="mx-auto h-10 w-10 rounded-full object-cover" />
-          </a>
-          <div class="ml-2 flex flex-col justify-between">
-            <span class="text-sm font-semibold text-indigo-500"> Simon Lewis </span>
-            <span class="flex items-center text-xs text-gray-500"> Head of marketing at Resnet </span>
-          </div>
-        </div>
-      </div>
-      <div class="-mt-10 hidden h-40 flex-shrink-0 rounded-xl bg-indigo-50 md:block"></div>
-    </div>
-  </div>
-
 </div>
 
-
-
-
-
-    </>
-  )
-
+  );
 };
 
 export default LandingPage;
