@@ -42,12 +42,6 @@ const ApplyJobs = ({ token }) => {
           `/resumes/${id}/${token.user.id}-${id}-${resumeFile.name}`,
           resumeFile
         );
-      if (fileError) {
-        console.log(fileError);
-        throw fileError;
-      }
-
-      console.log(fileData);
 
       const { data, error } = await supabase.from("job_applications").insert([
         {

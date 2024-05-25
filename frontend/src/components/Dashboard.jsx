@@ -34,7 +34,6 @@ function Dashboard({ token }) {
       if (error) {
         throw error;
       }
-
       console.log("Job deleted successfully");
       window.location.reload();
     } catch (error) {

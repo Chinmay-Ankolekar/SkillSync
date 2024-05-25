@@ -82,44 +82,47 @@ const AllCandidatesApplied = ({ token }) => {
   const getSelectedCandidates = async () => {
     try {
       const jobIds = await getJobIds();
-
+  
       if (jobIds.length === 0) {
         console.log("No jobs registered by the user.");
         return;
       }
-
-      const { data: selections, error } = await supabase
-        .from("selected_candidates")
-        .select("user_id, job_id")
+  
+      const { data: selections, error: selectionError } = await supabase
+        .from("job_applications")
+        .select("user_id, job_id, selected")
         .in("job_id", jobIds);
-
-      if (error) throw error;
-
-      const userIds = selections.map((selection) => selection.user_id);
-
+  
+      if (selectionError) throw selectionError;
+  
+      const selectedCandidates = selections.filter(selection => selection.selected);
+  
+      const userIds = selectedCandidates.map((selection) => selection.user_id);
+  
       if (userIds.length === 0) {
         console.log("No selected candidates found for the jobs.");
         return;
       }
-
+  
       const userInfo = await getUserInfo(userIds);
-
+  
       const selectedCandidatesWithJobs = userInfo.map((user) => {
-        const userSelections = selections.filter((sel) => sel.user_id === user.id);
+        const userSelections = selectedCandidates.filter((sel) => sel.user_id === user.id);
         const jobIds = userSelections.map((sel) => sel.job_id);
         return { ...user, jobIds };
       });
-
+  
       setSelectedCandidates(selectedCandidatesWithJobs);
     } catch (error) {
       console.log(error.message);
     }
   };
-
+  
   useEffect(() => {
     getCandidates();
     getSelectedCandidates();
   }, []);
+  
 
   return (
     <>

@@ -1,88 +1,60 @@
 import React, { useEffect, useState } from "react";
-import PythonQuiz from "./PythonQuiz";
 import supabase from "../supabase/supabase";
 
 const Shortlistresumes = ({ token, jobId }) => {
   const [rankedResumes, setRankedResumes] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
   const [userScores, setUserScores] = useState([]);
-  const [allScores, setAllScores] = useState([]);
   const [skills, setSkills] = useState([]);
-  const id = token.user.id;
 
   const handleDateChange = async (e) => {
     const date = e.target.value;
-
     setSelectedDate(date);
-
+  
     try {
-      const { error } = await supabase
-        .from("test_end_date")
-        .insert([{ job_id: jobId, end_date: date }]);
-
-      if (error) {
+      // Check if test_end_date is already set for this job_id in the jobs table
+      const { data: job, error: fetchError } = await supabase
+        .from('jobs')
+        .select('test_end_date')
+        .eq('id', jobId) // Use 'id' if that is the primary key
+        .single();
+  
+      if (fetchError) {
+        console.error("Error fetching job:", fetchError.message);
+        alert("Error fetching job!");
+        return;
+      }
+  
+      if (job.test_end_date) {
         alert("End date for this job test already exists!");
         return;
       }
-
-      alert(`End date for this job test is ${date} `);
+  
+      const { error } = await supabase
+        .from('jobs')
+        .update({ test_end_date: date })
+        .eq('id', jobId); 
+  
+      if (error) {
+        alert("Error updating end date for this job test!");
+        return;
+      }
+  
+      alert(`End date for this job test is ${date}`);
     } catch (error) {
-      console.error("Error inserting test_end_date:", error.message);
+      console.error("Error updating job:", error.message);
     }
   };
-
-  //select all candidates
-  // const fetchUserScoreByJobId = async () => {
-  //   try {
-  //     // Fetch user scores for the given job_id
-  //     const { data: userScores, error: scoresError } = await supabase
-  //       .from('user_scores')
-  //       .select('*')
-  //       .eq('job_id', jobId);
-
-  //     if (scoresError) {
-  //       console.error('Error fetching user scores:', scoresError.message);
-  //       return [];
-  //     }
-
-  //     const userIds = userScores.map((score) => score.user_id);
-  //     const { data: users, error: usersError } = await supabase
-  //       .from('users')
-  //       .select('*')
-  //       .in('id', userIds);
-
-  //     if (usersError) {
-  //       console.error('Error fetching users:', usersError.message);
-  //       return [];
-  //     }
-
-  //     // Combine user scores and user data
-  //     const combinedData = userScores.map((score) => {
-  //       const user = users.find((u) => u.id === score.user_id);
-  //       return {
-  //         user_id: score.user_id,
-  //         job_id: score.job_id,
-  //         score: score.score,
-  //         user_name: user.fullname,
-  //         user_email: user.email, // user data, if found
-  //       };
-  //     });
-
-  //     setUserScores(combinedData);
-  //     return combinedData;
-  //   } catch (error) {
-  //     console.error('Error fetching user scores:', error.message);
-  //     return [];
-  //   }
-  // };
-
-  //select single candidate with highest score
+  
+  
+  
   const fetchUserScoreByJobId = async () => {
     try {
       const { data: userScores, error: scoresError } = await supabase
-        .from("user_scores")
+        .from("job_applications")
         .select("*")
-        .eq("job_id", jobId);
+        .eq("job_id", jobId)
+        .eq("test_attempted", true);
 
       if (scoresError) {
         console.error("Error fetching user scores:", scoresError.message);
@@ -94,7 +66,7 @@ const Shortlistresumes = ({ token, jobId }) => {
         return;
       }
 
-      userScores.sort((a, b) => b.score - a.score);
+      userScores.sort((a, b) => b.test_score - a.test_score);
 
       const highestScoreUser = userScores[0];
 
@@ -113,10 +85,11 @@ const Shortlistresumes = ({ token, jobId }) => {
         console.error("Error fetching user:", userError.message);
         return [];
       }
+
       const combinedData = {
         user_id: highestScoreUser.user_id,
         job_id: highestScoreUser.job_id,
-        score: highestScoreUser.score,
+        score: highestScoreUser.test_score,
         user_name: user.fullname,
         user_email: user.email,
       };
@@ -130,7 +103,7 @@ const Shortlistresumes = ({ token, jobId }) => {
   };
 
   const handleDownloadAndShortlist = async () => {
-    alert("shortlisting candidates....")
+    alert("shortlisting candidates....");
     try {
       const downloadResponse = await fetch(
         `http://localhost:3000/download/${jobId}`,
@@ -176,6 +149,7 @@ const Shortlistresumes = ({ token, jobId }) => {
   };
 
   const sendTestLink = async (user_id) => {
+    console.log(user_id, jobId);
     alert("Sending test link");
     try {
       const response = await fetch(
@@ -204,31 +178,29 @@ const Shortlistresumes = ({ token, jobId }) => {
           method: "GET",
         }
       );
-      
+
       if (!response.ok) {
         alert(`HTTP error! status: ${response.status}`);
       }
-    
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
   const addSelectedCandidates = async (user_id) => {
-      try {
-        const {data, error } = await supabase
-          .from("selected_candidates")
-          .insert([
-            {
-              job_id: jobId,
-              user_id: user_id,
-            },
-          ]);
-          console.log(data);
-      } catch (error) {
-        console.error("Error:", error); 
-      }
-  } 
+    try {
+      const { data, error } = await supabase
+        .from("job_applications")
+        .update({ selected: true })
+        .eq("job_id", jobId)
+        .eq("user_id", user_id);
+
+      if (error) throw error;
+
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   const getSkills = async () => {
     try {
@@ -266,7 +238,6 @@ const Shortlistresumes = ({ token, jobId }) => {
         </button>
       </div>
 
-
       <div className="w-screen">
         <div className="mx-auto mt-8 max-w-screen-lg px-2">
           <div className="sm:flex sm:items-center sm:justify-between flex-col sm:flex-row"></div>
@@ -279,7 +250,7 @@ const Shortlistresumes = ({ token, jobId }) => {
                     htmlFor="date"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Select a End Date for Test
+                    Select an End Date for Test
                   </label>
                   <input
                     type="date"
@@ -299,24 +270,21 @@ const Shortlistresumes = ({ token, jobId }) => {
                     <tr>
                       <td
                         width="50%"
-                        className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6"
+                        className="whitespace-normal py-4 text-sm font-medium  text-gray-500 sm:px-6"
                       >
                         Name
                       </td>
-                      <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
+                      <td className="whitespace-normal py-4 text-sm font-medium  text-gray-500 sm:px-6">
                         Email
                       </td>
-                      {/* <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
-                        Phone No
-                      </td> */}
-                      <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
+                      <td className="whitespace-normal py-4 text-sm font-medium  text-gray-500 sm:px-6">
                         JobId
                       </td>
-                      <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
+                      <td className="whitespace-normal py-4 text-sm font-medium  text-gray-500 sm:px-6">
                         Score
                       </td>
-                      <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
-                        test link
+                      <td className="whitespace-normal py-4 text-sm font-medium  text-gray-500 sm:px-6">
+                        Test Link
                       </td>
                     </tr>
                   </thead>
@@ -327,36 +295,25 @@ const Shortlistresumes = ({ token, jobId }) => {
                         <tr key={resume.email}>
                           <td
                             width="50%"
-                            className="whitespace-no-wrap py-4 text-sm font-bold text-gray-900 sm:px-6"
+                            className="whitespace-no-wrap py-4 text-sm  text-gray-900 sm:px-6"
                           >
                             {resume.fullname}
-                            <div className="mt-1 lg:hidden">
-                              <p className="font-normal text-gray-500">
-                                {resume.email}
-                              </p>
-                            </div>
                           </td>
-                          <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
+                          <td className="whitespace-no-wrap py-4 text-sm  text-gray-900 sm:px-6">
                             {resume.email}
                           </td>
-
-                          <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
+                          <td className="whitespace-no-wrap py-4 text-sm  text-gray-900 sm:px-6">
                             {jobId}
-                            <div className="flex mt-1 ml-auto w-fit items-center rounded-full py-2 px-3 text-left text-xs font-medium text-black lg:hidden">
-                              {jobId}
-                            </div>
                           </td>
-                          <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                            <div className="inline-flex items-center rounded-full py-2 px-3 text-xs text-black">
-                              {resume.normalizedScore}
-                            </div>
+                          <td className="whitespace-no-wrap py-4 text-sm  text-gray-900 sm:px-6">
+                            {resume.normalizedScore}
                           </td>
-                          <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
+                          <td className="whitespace-no-wrap py-4 text-sm  text-gray-900 sm:px-6">
                             <button
-                              onClick={() => sendTestLink(resume.id)}
-                              className="inline-flex items-center rounded bg-purple-800 py-1 px-2 text-xs font-medium text-white hover:bg-purple-900"
+                              onClick={() => sendTestLink(resume.user_id)}
+                              className="inline-flex items-center rounded-full bg-purple-800 py-2 px-3 text-xs text-white"
                             >
-                              Send
+                              Send 
                             </button>
                           </td>
                         </tr>
@@ -369,82 +326,67 @@ const Shortlistresumes = ({ token, jobId }) => {
 
           {userScores.length > 0 && (
             <div>
-              <p className="mt-5 flex-1 text-base font-bold text-gray-900">
-                Top Scores
-              </p>
-              <div className="mt-6 overflow-hidden rounded-xl border shadow">
-                <table className="min-w-full border-separate border-spacing-y-2 border-spacing-x-2">
-                  <thead className="border-b lg:table-header-group">
-                    <tr>
-                      <td
-                        width="50%"
-                        className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6"
-                      >
-                        Name
-                      </td>
-                      <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
-                        Email
-                      </td>
-                      {/* <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
-                        Phone No
-                      </td> */}
-                      <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
-                        JobId
-                      </td>
-                      <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
-                        Score
-                      </td>
-                      <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
-                        Send Offer letter
-                      </td>
-                    </tr>
-                  </thead>
-                  <tbody className="lg:border-gray-300">
-                    {userScores.map((userScore) => (
-                      <tr key={userScore.user_id}>
+              <div>
+                <div>
+                  <h1 className="text-md font-semibold mt-4">
+                    Candidate with highest score
+                  </h1>
+                </div>
+                <div className="mt-6 overflow-hidden rounded-xl border shadow">
+                  <table className="min-w-full border-separate border-spacing-y-2 border-spacing-x-2">
+                    <thead className="border-b lg:table-header-group">
+                      <tr>
                         <td
                           width="50%"
-                          className="whitespace-no-wrap py-4 text-sm font-bold text-gray-900 sm:px-6"
+                          className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6"
                         >
-                          {userScore.user_name}
-                          <div className="mt-1 lg:hidden">
-                            <p className="font-normal text-gray-500">
-                              {userScore.user_name}
-                            </p>
-                          </div>
+                          Name
                         </td>
-                        <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                          {userScore.user_email}
+                        <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
+                          Email
                         </td>
-                        {/* <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
-                          9999999999
-                          <div className="flex mt-1 ml-auto w-fit items-center rounded-full py-2 px-3 text-left text-xs font-medium text-black lg:hidden">
-                            9999999999
-                          </div>
-                        </td> */}
-                        <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
-                          {userScore.job_id}
-                          <div className="flex mt-1 ml-auto w-fit items-center rounded-full py-2 px-3 text-left text-xs font-medium text-black lg:hidden">
-                            {userScore.job_id}
-                          </div>
+                        <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
+                          JobId
                         </td>
-                        <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                          <div className="inline-flex items-center rounded-full py-2 px-3 text-xs text-black">
-                            {userScore.score}
-                          </div>
+                        <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
+                          Score
                         </td>
-                        <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                          <button
-                            onClick={() => sendOfferLetter(userScore.user_id)}
-                            className="inline-flex items-center rounded bg-purple-800 py-1 px-2 text-xs font-medium text-white hover:bg-purple-900"
-                          >
-                            Send
-                          </button>
+                        <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
+                          Offer Letter
                         </td>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="lg:border-gray-300">
+                      {userScores.map((score) => (
+                        <tr key={score.user_email}>
+                          <td
+                            width="50%"
+                            className="whitespace-no-wrap py-4 text-sm  text-gray-900 sm:px-6"
+                          >
+                            {score.user_name}
+                          </td>
+                          <td className="whitespace-no-wrap py-4 text-sm  text-gray-900 sm:px-6">
+                            {score.user_email}
+                          </td>
+                          <td className="whitespace-no-wrap py-4 text-sm  text-gray-900 sm:px-6">
+                            {score.job_id}
+                          </td>
+                          <td className="whitespace-no-wrap py-4 text-sm  text-gray-900 sm:px-6">
+                            {score.score}
+                          </td>
+                          <td className="whitespace-no-wrap py-4 text-sm  text-gray-900 sm:px-6">
+                            <button
+                              onClick={() => sendOfferLetter(score.user_id)}
+                              className="inline-flex items-center rounded-full bg-purple-800 py-2 px-3 text-xs text-white"
+                            >
+                              Send
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           )}
