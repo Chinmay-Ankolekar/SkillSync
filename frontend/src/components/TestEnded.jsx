@@ -2,8 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const TestEnded = () => {
-    let Navigate = useNavigate();
-
+    let navigate = useNavigate();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -20,7 +19,9 @@ const TestEnded = () => {
         <ul className="list-disc list-inside text-lg text-gray-600 mt-2">
           <li>You changed the tab.</li>
           <li>You reloaded the page.</li>
-          <button className='text-blue-500 underline' onClick={()=> {Navigate('/login')}}>Login</button>
+          <li>Test date is ended.</li>
+          <li>You have already attempted the test</li>
+          <button className='text-purple-700 underline' onClick={()=> {navigate('/')}}>Login</button>
         </ul>
       </div>
     </div>

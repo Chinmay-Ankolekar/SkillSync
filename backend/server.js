@@ -187,7 +187,7 @@ app.get('/mail/:id/:jobId', async (req, res) => {
 
   const { data: userData, error: userError } = await supabase
     .from('users')
-    .select('email')
+    .select('email, fullname')
     .eq('id', id);
 
 
@@ -196,16 +196,13 @@ app.get('/mail/:id/:jobId', async (req, res) => {
     .select('end_date')
     .eq('job_id', jobId);
 
-
-  let textMailOptions = {
-    from: 'chinmaysankolekar@gmail.com',
-    to: `${userData[0].email}`,
-    subject: `Invitation for Job Test - Role: ${jobData[0].designation}`,
-    text: `Dear Applicant,\n\nWe are pleased to invite you to take the job test for the role ${jobData[0].designation} as part of our hiring process. \n\nYou can access the test using the following link: ${testLink}\n\nThank you for your interest in joining our team. We look forward to your participation.\n\nBest regards,\n${jobData[0].company_name}
-    
-    Take test before : ${jobTestDate[0].end_date}
-    `
-};
+    let textMailOptions = {
+      from: 'chinmaysankolekar@gmail.com',
+      to: `${userData[0].email}`,
+      subject: `Invitation for Job Test - Role: ${jobData[0].designation}`,
+      text: `Dear ${userData[0].fullname},\n\nWe are pleased to invite you to take the job test for the role ${jobData[0].designation} as part of our hiring process. \n\nYou can access the test using the following link: ${testLink}\n\nThank you for your interest in joining our team. We look forward to your participation.\n\nPlease note the following instructions:\n- Once submitted, your answers cannot be changed.\n- If you reload the page during the test, you will be disqualified.\n- Changing tabs during the test will result in disqualification.\n- After completing the test, your scores will be calculated, and you will be notified via email regarding your selection status.\n\nTest must be completed before: ${jobTestDate[0].end_date}\n\nBest regards,\n${jobData[0].company_name}`
+  };
+  
 
   transporter.sendMail(textMailOptions, (err, data) => {
       if (err) {

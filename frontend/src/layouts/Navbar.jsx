@@ -56,7 +56,6 @@ const Navbar = ({token}) => {
           </div>
         </nav>
       </header>
-      <hr />
     </div>
     );
   }

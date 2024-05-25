@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const PythonQuiz = () => {
   const questions = [
     {
-      question: "What is the output of the following code?\n\n```python\nprint([i for i in range(5)])\n```",
+      question: "What is the output of the following code?\n\npython\nprint([i for i in range(5)])\n",
       options: ["[0, 1, 2, 3, 4]", "[1, 2, 3, 4, 5]", "[0, 1, 2, 3]", "[1, 2, 3, 4]"],
       answer: "[0, 1, 2, 3, 4]",
       category: "Python Basics"
@@ -23,13 +23,13 @@ const PythonQuiz = () => {
       category: "Python Basics"
     },
     {
-      question: "What is the result of the following expression?\n\n```python\n3 * 'abc'\n```",
+      question: "What is the result of the following expression?\n\npython\n3 * 'abc'\n",
       options: ["'abcabcabc'", "'abc abc abc'", "['abc', 'abc', 'abc']", "'aabbcc'"],
       answer: "'abcabcabc'",
       category: "Python Strings"
     },
     {
-      question: "What will be the output of the following code?\n\n```python\na = [1, 2, 3]\nb = a\na[0] = 0\nprint(b)\n```",
+      question: "What will be the output of the following code?\n\npython\na = [1, 2, 3]\nb = a\na[0] = 0\nprint(b)\n",
       options: ["[1, 2, 3]", "[0, 2, 3]", "[0, 1, 2, 3]", "[0, 2, 3, 4]"],
       answer: "[0, 2, 3]",
       category: "Python Lists"
@@ -41,13 +41,13 @@ const PythonQuiz = () => {
       category: "Python Functions"
     },
     {
-      question: "What is the output of the following code?\n\n```python\nx = 5\ny = x\nx += 2\nprint(y)\n```",
+      question: "What is the output of the following code?\n\npython\nx = 5\ny = x\nx += 2\nprint(y)\n",
       options: ["5", "7", "2", "None of the above"],
       answer: "5",
       category: "Python Variables"
     },
     {
-      question: "What is the output of the following code?\n\n```python\nprint('Hello'[::-1])\n```",
+      question: "What is the output of the following code?\n\npython\nprint('Hello'[::-1])\n",
       options: ["'Hello'", "'olleH'", "'H'", "'o'"],
       answer: "'olleH'",
       category: "Python Strings"
@@ -59,7 +59,7 @@ const PythonQuiz = () => {
       category: "Python File Handling"
     },
     {
-      question: "What will be the output of the following code?\n\n```python\nnumbers = [1, 2, 3, 4]\nprint(sum(numbers))\n```",
+      question: "What will be the output of the following code?\n\npython\nnumbers = [1, 2, 3, 4]\nprint(sum(numbers))\n",
       options: ["10", "24", "4", "None of the above"],
       answer: "10",
       category: "Python Lists"
@@ -101,7 +101,7 @@ const PythonQuiz = () => {
   
         if (today === endDate) {
           alert('Test date ended');
-          navigate('/login');
+          navigate('/testended');
         }
       }
     } catch (error) {
@@ -124,7 +124,7 @@ const PythonQuiz = () => {
 
       if (data && data.attempted) {
         alert('You have already attempted this quiz. You will be redirected to the login page.');
-        navigate('/login');
+        navigate('/testended');
       } else {
         const { error: insertError } = await supabase
           .from('test_attempted')
@@ -185,7 +185,7 @@ const PythonQuiz = () => {
       console.error('Error inserting user_score:', error);
     } else {
       alert('Quiz completed. Your score has been recorded.');
-      navigate('/login');
+      navigate('/scoreRecorded');
     }
   };
 

@@ -37,7 +37,7 @@ const UserDashboard = ({ token }) => {
 
       <div className="mx-auto mt-8 mb-20 flex w-full flex-col space-y-2 sm:w-auto sm:flex-row sm:space-y-0 sm:space-x-6">
         <button onClick={()=> {navigate('/jobAppliedbyUser')}} className="rounded-full bg-purple-900 px-10 py-3 font-medium text-white hover:opacity-80 sm:w-auto">Jobs Applied</button>
-        <button className="rounded-full border-2 border-purple-900 px-10 py-3 font-medium text-black transition hover:bg-purple-900 hover:text-white sm:w-auto">Apply now</button>
+        <button className="rounded-full border-2 border-purple-900 px-10 py-3 font-medium text-purple-800 transition hover:bg-purple-900 hover:text-white sm:w-auto">Apply now</button>
       </div>
     </div>
 

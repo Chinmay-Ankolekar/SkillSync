@@ -130,6 +130,7 @@ const Shortlistresumes = ({ token, jobId }) => {
   };
 
   const handleDownloadAndShortlist = async () => {
+    alert("shortlisting candidates....")
     try {
       const downloadResponse = await fetch(
         `http://localhost:3000/download/${jobId}`,
@@ -187,12 +188,14 @@ const Shortlistresumes = ({ token, jobId }) => {
       if (!response.ok) {
         alert(`HTTP error! status: ${response.status}`);
       }
+      alert("Test link sent successfully");
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
   const sendOfferLetter = async (user_id) => {
+    addSelectedCandidates(user_id);
     alert("Sending offer letter");
     try {
       const response = await fetch(
@@ -201,14 +204,31 @@ const Shortlistresumes = ({ token, jobId }) => {
           method: "GET",
         }
       );
-
+      
       if (!response.ok) {
         alert(`HTTP error! status: ${response.status}`);
       }
+    
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
+  const addSelectedCandidates = async (user_id) => {
+      try {
+        const {data, error } = await supabase
+          .from("selected_candidates")
+          .insert([
+            {
+              job_id: jobId,
+              user_id: user_id,
+            },
+          ]);
+          console.log(data);
+      } catch (error) {
+        console.error("Error:", error); 
+      }
+  } 
 
   const getSkills = async () => {
     try {
@@ -319,12 +339,7 @@ const Shortlistresumes = ({ token, jobId }) => {
                           <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
                             {resume.email}
                           </td>
-                          {/* <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
-                            9999999999
-                            <div className="flex mt-1 ml-auto w-fit items-center rounded-full py-2 px-3 text-left text-xs font-medium text-black lg:hidden">
-                              9999999999
-                            </div>
-                          </td> */}
+
                           <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
                             {jobId}
                             <div className="flex mt-1 ml-auto w-fit items-center rounded-full py-2 px-3 text-left text-xs font-medium text-black lg:hidden">

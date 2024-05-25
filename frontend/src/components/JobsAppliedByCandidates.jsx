@@ -46,7 +46,7 @@ const JobsAppliedByCandidates = ({ token }) => {
 
       if (jobIds.length === 0) {
         alert("You have not applied for any jobs yet.");
-        navigate("/dashboard");
+        navigate("/userdashboard");
         return;
       }
 

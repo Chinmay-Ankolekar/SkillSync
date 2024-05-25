@@ -1,6 +1,6 @@
 const Footer = () => {
     return ( 
-        <footer class="w-full py-14 bg-gray-100">
+        <footer class="w-full py-14 bg-purple-50">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="max-w-3xl mx-auto">
                 <a href="https://pagedone.io/" class="flex justify-center ">

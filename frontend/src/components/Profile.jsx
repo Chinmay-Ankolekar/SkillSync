@@ -48,9 +48,6 @@ const Profile = ({ token }) => {
             <div className="flex gap-4">
               <a href={`mailto:${user.email}`} className="text-blue-600 hover:underline">Email: {user.email}</a>
             </div>
-            <div className="flex gap-4">
-              <a href={`tel:${user.phone}`} className="text-blue-600 hover:underline">Phone No: 999999999</a>
-            </div>
           </div>
         </div>
       </div>

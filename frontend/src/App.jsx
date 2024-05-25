@@ -16,6 +16,7 @@ import JobsAppliedByCandidates from './components/JobsAppliedByCandidates'
 import Profile from './components/Profile'
 import Contact from './components/Contact'
 import FAQ from './components/FAQ'
+import ScoresRecorded from './components/ScoresRecorded'
 
 function App() {
   const [token, setToken] = useState(false)
@@ -43,6 +44,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path={'/python'} element={<PythonQuiz />} />
         <Route path={'/testended'} element={<TestEnded />} />
+        <Route path={'/scoreRecorded'} element={<ScoresRecorded/>} />
 
         {token ? (
         <>
@@ -57,6 +59,7 @@ function App() {
           <Route path={'/profile'} element={<Profile token={token}/>} />
           <Route path={'/contactUs'} element={<Contact token={token}/>} />
           <Route path={'/faq'} element={<FAQ token={token}/>} />
+        
         </>
       ) : (
          <>
