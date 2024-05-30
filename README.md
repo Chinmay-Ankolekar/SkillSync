@@ -23,6 +23,6 @@ SkillSync is a web application designed to streamline the job posting, applicati
 ## Technology Stack
 - Frontend: ReactJS
 - Backend: Node.js with Express.js
-- Authentication and Database: Supabase
+- Authentication, Storage and Database: Supabase
 
 
