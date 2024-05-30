@@ -102,7 +102,7 @@ function Dashboard({ token }) {
           <div class="relative flex  flex-col items-center justify-center overflow-hidden  p-6 sm:py-12 ">
             <div class="bg-white shadow-xl shadow-gray-100 w-full max-w-4xl flex flex-col sm:flex-row gap-3 sm:items-center justify-between px-5 py-4 rounded-md">
               <div>
-                <span class="text-purple-800 text-sm">Engineering</span>
+                <span class="text-purple-800 text-sm">{job.company_name}</span>
                 <h3 class="font-bold mt-px">{job.name}</h3>
                 <div class="flex items-center gap-3 mt-2">
                   <span class="bg-purple-100 text-purple-700 rounded-full px-3 py-1 text-sm">

@@ -250,7 +250,7 @@ const AllCandidatesApplied = ({ token }) => {
                           </div>
                         </td>
                         <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                          <div className="inline-flex items-center rounded-full bg-green-800 py-2 px-3 text-xs text-white">
+                          <div className="inline-flex items-center rounded-full bg-purple-800 py-2 px-3 text-xs text-white">
                             Selected
                           </div>
                         </td>
