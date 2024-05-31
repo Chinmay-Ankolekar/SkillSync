@@ -2,8 +2,6 @@ import supabase from "../supabase/supabase";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import Navbar from "../layouts/Navbar";
-import GetScore from "./GetScore";
-import Footer from "../layouts/Footer";
 
 function Dashboard({ token }) {
   const [jobs, setJobs] = useState([]);

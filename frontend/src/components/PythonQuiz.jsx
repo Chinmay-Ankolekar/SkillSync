@@ -90,6 +90,7 @@ const PythonQuiz = () => {
       isAttemptedRef.current = isAttempted;
     }, [isAttempted]);
   
+    //check tab change
     useEffect(() => {
       const handleVisibilityChange = () => {
         if (document.hidden) {
@@ -104,6 +105,7 @@ const PythonQuiz = () => {
       };
     }, [navigate]);
   
+    //timer for the test (5min)
     useEffect(() => {
       const countdown = setInterval(() => {
         setTimer(prevTimer => {
@@ -120,6 +122,7 @@ const PythonQuiz = () => {
       return () => clearInterval(countdown);
     }, [navigate]);
   
+    //when user changes the option for a question
     const handleOptionChange = (option) => {
       setUserAnswer(option);
       setUserAnswers(prevAnswers => ({
@@ -128,6 +131,7 @@ const PythonQuiz = () => {
       }));
     };
   
+    //when user clicks on next or submit
     const handleSubmit = () => {
       if (currentIndex < questions.length - 1) {
         setCurrentIndex(currentIndex + 1);
@@ -137,6 +141,7 @@ const PythonQuiz = () => {
       }
     };
   
+    //after submission evaluate the quiz result and update the marks to the database
     const evaluateQuiz = async () => {
       const totalScore = questions.reduce((acc, question, index) => {
         return acc + (userAnswers[index] === question.answer ? 1 : 0);
@@ -157,6 +162,7 @@ const PythonQuiz = () => {
       }
     };
   
+    //check if the user has already attempted the test
     const checkAttempted = async () => {
       try {
         const { data: jobApplications, error } = await supabase
@@ -177,6 +183,7 @@ const PythonQuiz = () => {
       }
     }
   
+    //set the test_attempted flag to true
     const setAttempted = async () => {
       try {
         const { data: jobApplications, error } = await supabase
@@ -191,6 +198,7 @@ const PythonQuiz = () => {
       }
     };
   
+    //check if the end date of the test has passed
     const checkEndDate = async () => {
       try {
         const { data: jobData, error } = await supabase
@@ -219,6 +227,7 @@ const PythonQuiz = () => {
       }
     };
     
+    //overall checking the test conditions
     useEffect(() => {
       const fetchData = async () => {
         if (!isAttemptedRef.current) {
